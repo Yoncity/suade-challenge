@@ -1,5 +1,4 @@
 <template>
-
   <h2>Exercise 2</h2>
   <h4>Statement</h4>
   <div class="statement">
@@ -16,40 +15,40 @@
   </div>
   <h4>Solution</h4>
   <div class="solution">
-    <List data="people" options="options"></List>
+    <List :data="people" :options="options" @change-page="changePage"></List>
   </div>
-
 </template>
 
 <script>
-
   import List from './components/List';
 
   export default {
     name: 'App',
     components: {List},
-    data: ()=>{
+    data: () => {
       return {
         people: [],
         options: {pagination: {limit: 10, offset: 0}},
       };
     },
+    methods: {
+      changePage(page) {
+        this.options.pagination.offset = page * this.options.pagination.limit;
+      },
+    },
     created() {
       fetch('https://run.mocky.io/v3/8aabb2ec-21c0-42c0-815c-0d748b775734')
-        .then(function(response) {
-          response.json();
-        })
-        .then(function(data) {
+        .then((response) => response.json())
+        .then((data) => {
           this.people = data;
         });
     },
   };
-
 </script>
 
 <style lang="scss">
-
-.statement, .solution {
+.statement,
+.solution {
   border: 1px solid #dedede;
   padding: 0 0.5em;
   min-height: 40px;
@@ -60,5 +59,4 @@
     padding: 0 5px;
   }
 }
-
 </style>
