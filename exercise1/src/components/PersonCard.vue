@@ -1,15 +1,10 @@
 <template>
-  <br/>
-  <div class="details" @click="$emit('personClick', person)">
-    <h4> {{ person.name }} </h4>
-    <b>Age:</b> {{ person.age }} <br/>
-    <b>Eye Color:</b> {{ person.eyeColour }} <br/>
-    <b>Gender:</b> {{ person.gender }} <br/>
+  <div class="person-card" @click="$emit('personClick', person)">
+    <h4>{{ person.name }}</h4>
+    <p><b>Age:</b> {{ person.age }}</p>
+    <p><b>Eye Color:</b> {{ person.eyeColour }}</p>
+    <p><b>Gender:</b> {{ person.gender }}</p>
   </div>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
 </template>
 
 <script>
@@ -18,12 +13,50 @@
     props: {
       person: {
         type: Object,
-        default: {},
+        required: true,
+        default: () => ({
+          _id: '',
+          age: 0,
+          eyeColor: '',
+          name: '',
+          gender: '',
+          location: {
+            latitude: 0,
+            longitude: 0,
+          },
+          preferences: {
+            pet: '',
+            fruit: '',
+          },
+        }),
+      },
+    },
+    emits: {
+      personClick: (person) => {
+        if (Object.keys(person).length === 0) {
+          console.warn('Empty person object received');
+          return false;
+        }
+        return true;
       },
     },
   };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.person-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #e4e4e4;
+  min-width: 100px;
+  width: 300px;
 
+  h4,
+  p {
+    margin: 0;
+    padding: 10px;
+  }
+}
 </style>
