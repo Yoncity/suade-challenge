@@ -103,18 +103,91 @@
     --background-1: #004c6d;
     --background-2: #547c98;
     --background-3: #93afc5;
+    --eye-icon-size: 24px;
+    --eye-icon-scale: 1.4;
+    --eye-icon-margin: 12px;
     --eye-brown: 192deg;
     --eye-green: 290deg;
     --eye-blue: -32deg;
     --item-margin: 10px;
     --item-padding: 20px;
+    --item-line-height: 15px;
     --border-radius: 5px;
+    --item-text-color: #fff;
 
     --items-by-row-when-screen-is-less-than-600px: 2;
     --items-by-row-when-screen-is-more-than-600px: 4;
     --items-by-row-when-screen-is-more-than-1024px: 7;
   }
 
-  // TODO: Add your CSS Styling here
+  .solution {
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      .item {
+        display: flex;
+        flex-direction: column;
+        border-radius: var(--border-radius);
+        margin: var(--item-margin);
+        padding: var(--item-padding);
+        color: var(--item-text-color);
+        font-family: var(--font);
+        width: calc(100% / var(--items-by-row-when-screen-is-more-than-1024px) - var(--item-margin) * 2);
+        box-sizing: border-box;
+
+        .name{
+          font-weight: bold;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 1;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+        .age{
+          line-height: var(--item-line-height);
+        }
+        .eye-color {
+          display: flex;
+          align-items: center;
+          .eye-icon {
+            width: var(--eye-icon-size);
+            margin-left: var(--eye-icon-margin);
+            transform: scale(var(--eye-icon-scale))
+          }
+          .brown {
+            filter: hue-rotate(var(--eye-brown))
+          }
+          .green {
+            filter: hue-rotate(var(--eye-green))
+          }
+          .blue {
+            filter: hue-rotate(var(--eye-blue))
+          }
+        }
+        &:nth-child(1n), &:nth-child(3n) {
+          background-color: var(--background-2);
+        }
+        &:nth-child(2n) {
+          background-color: var(--background-3);
+        }
+        &:nth-child(4n) {
+          background-color: var(--background-1);
+        }
+      }
+    }
+  }
+
+  @media (max-width: 600px) {
+    .solution > .container > .item {
+      width: calc(100% / var(--items-by-row-when-screen-is-less-than-600px) -  var(--item-margin) * 2);
+    }
+  }
+
+  @media (min-width: 600px) and (max-width: 1024px) {
+    .solution > .container > .item {
+      width: calc(100% / var(--items-by-row-when-screen-is-more-than-600px) -  var(--item-margin) * 2);
+    }
+  }
 
 </style>
