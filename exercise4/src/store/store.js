@@ -16,4 +16,9 @@ export default new Vuex.Store({
         .then((people)=>context.commit('savePeople', people));
     },
   },
+  getters: {
+    getAllPeople(state) {
+      return state.people;
+    },
+  },
 });

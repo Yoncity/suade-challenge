@@ -16,7 +16,7 @@
     },
     computed: {
       filteredData() {
-        return this.data.filter(this.filtering);
+        return this.data.filter(this.filtering(25, 35));
       },
       sortedData() {
         return this.filteredData.slice().sort(this.sorting);

@@ -17,13 +17,41 @@
   </div>
   <h4>Solution</h4>
   <div class="solution">
-    <!-- TODO: implement template here -->
+    <p v-show="loading">Loading</p>
+    <List :data="people" :sorting="sortByAge" :filtering="filterByAge">
+      <template #default="{item}">
+        <div class="list-item">
+          <p>{{item.age}}</p>
+          <p>{{item.name}}</p>
+        </div>
+      </template>
+    </List>
   </div>
 
 </template>
 
 <script>
-  // TODO: implement logic here
+  import {mapActions, mapGetters} from 'vuex';
+  import List from './components/List.vue';
+  import helpers from './helpers/helpers.js';
+
+  export default {
+    components: {List},
+    created() {
+      this.getPeople();
+    },
+    computed: {
+      ...mapGetters({people: 'getAllPeople'}),
+      loading() {
+        return !this.people.length;
+      },
+    },
+    methods: {
+      ...mapActions(['getPeople']),
+      sortByAge: helpers.sortByAge,
+      filterByAge: helpers.filterByAge,
+    },
+  };
 </script>
 
 <style lang="scss">
@@ -37,6 +65,20 @@
       color: #434343;
       background-color: #f9f9f9;
       padding: 0 5px;
+    }
+    .list-item{
+      display: flex;
+      p{
+        margin: 0;
+        padding: 6px 0;
+        &:first-child{
+          font-style: italic;
+          margin-right: 10px;
+        }
+        &:last-child{
+          font-weight: bold;
+        }
+      }
     }
   }
 
