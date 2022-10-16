@@ -27,7 +27,12 @@
           .map((v, i)=>i);
       },
       currentPage() {
-        return (this.offset / this.limit);
+        const mCurrentPage = (this.offset / this.limit);
+        const lastPage = this.pages.at(-1);
+        if (lastPage < mCurrentPage) {
+          this.changePage(lastPage);
+          return lastPage;
+        } else return mCurrentPage;
       },
     },
     methods: {
